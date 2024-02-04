@@ -9,7 +9,7 @@ import matplotlib.pyplot as plt
 import plotly.express as plotlyex
 
 # Primero leemos los datos scrapeados
-airbnb = pd.read_csv('data/airbnb.csv', sep=';')
+airbnb = pd.read_csv('airbnb.csv', sep=';')
 
 # Primera página: Introducción
 
@@ -22,7 +22,7 @@ def set_intro():
              Aproveche para decidir sus próximas vacaciones!""")
     
     # Añado una foto para hacer más bonito el dashboard
-    st.image('images/image_airbnb.jpg', caption='Imágen extraída de https://static.hosteltur.com/', use_column_width=True)
+    st.image('image_airbnb.jpg', caption='Imágen extraída de https://static.hosteltur.com/', use_column_width=True)
 
 
 
@@ -339,7 +339,7 @@ def set_mapa():
         
     if boton_mapa:
     
-        archivo_shapefile = 'data/ccaa_limites/Comunidades_Autonomas_ETRS89_30N.shp'
+        archivo_shapefile = 'Comunidades_Autonomas_ETRS89_30N.shp'
         comunidades_autonomas = gpd.read_file(archivo_shapefile)
         comunidades_autonomas = comunidades_autonomas.iloc[range(17)]
         comunidades_autonomas = comunidades_autonomas[['Texto','geometry']]
