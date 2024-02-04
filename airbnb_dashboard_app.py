@@ -3,7 +3,7 @@
 import pandas as pd
 import streamlit as st
 import numpy as np
-from plotnine import *
+import plotnine as p9
 import geopandas as gpd
 import matplotlib.pyplot as plt
 import plotly.express as plotlyex
@@ -183,16 +183,16 @@ def set_comparador_particular():
         data_elegir_mes = airbnb[['Mes', 'precio_noche']].loc[airbnb.Mes.isin(meses_elegir_mes)]
         
         grafico_elegir_mes = (
-                                ggplot(data_elegir_mes, aes(x='precio_noche', fill='Mes', color='Mes'))
-                                    + geom_density(alpha=0.2, show_legend=False)
-                                    + scale_x_continuous(name="Precio (€/noche)",
+                                p9.ggplot(data_elegir_mes, p9.aes(x='precio_noche', fill='Mes', color='Mes'))
+                                    + p9.geom_density(alpha=0.2, show_legend=False)
+                                    + p9.scale_x_continuous(name="Precio (€/noche)",
                                                          breaks=range(0,1500,100),
                                                          labels=[str(x)+'€' for x in range(0,1500,100)])
-                                    + scale_y_continuous(name="Distribución")
-                                    + theme(axis_ticks_major_y = element_blank(),
-                                               axis_text_y = element_blank())
-                                    + labs(title="Distribución del precio por mes")
-                                    + facet_wrap('Mes', ncol=1)
+                                    + p9.scale_y_continuous(name="Distribución")
+                                    + p9.theme(axis_ticks_major_y = p9.element_blank(),
+                                               axis_text_y = p9.element_blank())
+                                    + p9.labs(title="Distribución del precio por mes")
+                                    + p9.facet_wrap('Mes', ncol=1)
                                 )
        
         st.pyplot(grafico_elegir_mes.draw())
@@ -237,16 +237,16 @@ def set_comparador_particular():
         data_elegir_ccaa = airbnb[['Destino', 'Mes', 'precio_noche']].loc[(airbnb.Mes == mes_elegir_ccaa) & (airbnb.Destino.isin(ccaa_elegir_ccaa))]
         
         grafico_elegir_ccaa = (
-                                ggplot(data_elegir_ccaa, aes(x='precio_noche', fill='Destino', color='Destino'))
-                                    + geom_density(alpha=0.2, show_legend=False)
-                                    + scale_x_continuous(name="Precio (€/noche)",
+                                p9.ggplot(data_elegir_ccaa, p9.aes(x='precio_noche', fill='Destino', color='Destino'))
+                                    + p9.geom_density(alpha=0.2, show_legend=False)
+                                    + p9.scale_x_continuous(name="Precio (€/noche)",
                                                          breaks=range(0,1500,100),
                                                          labels=[str(x)+'€' for x in range(0,1500,100)])
-                                    + scale_y_continuous(name="Distribución")
-                                    + theme(axis_ticks_major_y = element_blank(),
-                                               axis_text_y = element_blank())
-                                    + labs(title=f"Distribución del precio por CCAA para {mes_elegir_ccaa}")
-                                    + facet_wrap('Destino', ncol=1)
+                                    + p9.scale_y_continuous(name="Distribución")
+                                    + p9.theme(axis_ticks_major_y = p9.element_blank(),
+                                               axis_text_y = p9.element_blank())
+                                    + p9.labs(title=f"Distribución del precio por CCAA para {mes_elegir_ccaa}")
+                                    + p9.facet_wrap('Destino', ncol=1)
                                 )
         
         st.pyplot(grafico_elegir_ccaa.draw())
@@ -286,11 +286,11 @@ def set_serie_temp():
     if boton_serie and len(ccaa_serie) > 0:
         data_serie_temp = airbnb[['Mes','Destino','precio_noche']].loc[(airbnb.Destino.isin(ccaa_serie))].groupby(['Mes', 'Destino']).mean('precio_noche').reset_index()
         
-        grafico_serie_temp = (ggplot(data_serie_temp, aes(x='Mes', y='precio_noche', color='Destino'))
-                              + geom_line()
-                              + aes(group='Destino')
-                              + ggtitle('Precio medio de los alojamientos por mes.')
-                              + scale_x_discrete(name="Meses",
+        grafico_serie_temp = (p9.ggplot(data_serie_temp, p9.aes(x='Mes', y='precio_noche', color='Destino'))
+                              + p9.geom_line()
+                              + p9.aes(group='Destino')
+                              + p9.ggtitle('Precio medio de los alojamientos por mes.')
+                              + p9.scale_x_discrete(name="Meses",
                                                  limits=['Febrero',
                                                          'Marzo',
                                                          'Abril',
@@ -303,10 +303,10 @@ def set_serie_temp():
                                                          'Noviembre',
                                                          'Diciembre',
                                                          'Enero'])
-                              + scale_y_continuous(name="Precio medio (€/noche)",
+                              + p9.scale_y_continuous(name="Precio medio (€/noche)",
                                                    breaks=range(110,350,20),
                                                    labels=[str(x)+'€' for x in range(110,350,20)])
-                              + theme(axis_text_x=element_text(angle=45, hjust=1)))
+                              + p9.theme(axis_text_x=p9.element_text(angle=45, hjust=1)))
         st.pyplot(grafico_serie_temp.draw())
 
 
