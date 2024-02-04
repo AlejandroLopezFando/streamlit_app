@@ -81,7 +81,7 @@ def set_buscador():
     
     # Muestro las columnas bonitas
     output_data = output_data[['Alojamiento', 'Precio (€/noche)',
-                               'Descuento', 'Valoración', 'Nº Reseñas']]
+                               'Descuento', 'Valoración', 'Nº Reseñas']].head(20)
     
     if output_data.shape[0] == 0:
         st.write('Lo sentimos, no hay alojamientos para sus requisitos.')
@@ -89,7 +89,7 @@ def set_buscador():
         st.write('Aquí tiene el top-20 de los mejores alojamientos para sus requisitos:')
         st.write(f'Destino: {ccaa_buscador}')
         st.write(f'Mes: {mes_buscador}')
-        st.dataframe(output_data.head(20), hide_index=True)
+        st.dataframe(output_data, hide_index=True)
         
     st.write(f'''A continuación, por si no le ha gustado ninguna de las 20 opciones que le hemos propuesto, 
              le mostraremos un gráfico donde podrá consultar todos los alojamientos disponibles en {ccaa_buscador} en {mes_buscador}. 
