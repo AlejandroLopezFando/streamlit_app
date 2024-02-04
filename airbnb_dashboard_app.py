@@ -1,14 +1,12 @@
 # -*- coding: utf-8 -*-
 
-import streamlit as st
 import pandas as pd
+import streamlit as st
 import numpy as np
 from plotnine import *
 import geopandas as gpd
 import matplotlib.pyplot as plt
 import plotly.express as plotlyex
-
-# En este fichero está definido el contenido de cada página
 
 # Primero leemos los datos scrapeados
 airbnb = pd.read_csv('data/airbnb.csv', sep=';')
@@ -364,4 +362,34 @@ def set_mapa():
         ax.axis('off')
 
         st.pyplot(plt)
-    
+        
+
+# Creamos el dashboard
+st.set_page_config(page_title='Airbnb')
+
+# Añado el título
+st.title('Airbnb')
+
+# Añado la barra lateral, la cual nos permitirá movernos entre páginas
+st.sidebar.header('Menu')
+
+menu = st.sidebar.radio(
+    "",
+    ("Introducción", "Buscador", "Comparador general", "Comparador particular", "Serie temporal", "Mapa"),
+)
+
+# Configo el Menu, para que cuándo se haga click en los distintos botones, estos
+# lleven a cada página del dashboard
+
+if menu == 'Introducción':
+    set_intro()
+elif menu == 'Buscador':
+    set_buscador()
+elif menu == 'Comparador general':
+    set_comparador_general()
+elif menu == 'Comparador particular':
+    set_comparador_particular()
+elif menu == 'Serie temporal':
+    set_serie_temp()
+elif menu == 'Mapa':
+    set_mapa()
